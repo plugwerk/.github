@@ -1,0 +1,13 @@
+# Sponsor button configuration for the plugwerk organization.
+#
+# Currently empty — there is no public sponsorship channel yet, and an
+# empty config is preferable to pointing at a placeholder profile that
+# would erode trust if a visitor clicked through.
+#
+# To enable the GitHub "Sponsor" button across all org repos, add at
+# least one of the supported keys below. See:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+#
+# Examples (uncomment and edit when ready):
+# github: [bigpuritz]
+# custom: ["https://example.com/sponsor"]
