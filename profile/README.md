@@ -6,12 +6,6 @@ extensible software — third-party integrations, custom workflows,
 white-label features — without rebuilding plugin infrastructure from
 scratch.
 
-## Status
-
-**Phase 2, alpha.** APIs are stabilizing but breaking changes still happen
-between releases. Not yet recommended for production deployments without
-direct contact with the maintainers.
-
 ## Repositories
 
 - **[plugwerk/plugwerk](https://github.com/plugwerk/plugwerk)** — server
