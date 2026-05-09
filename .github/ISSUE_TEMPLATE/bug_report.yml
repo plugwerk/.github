@@ -1,0 +1,100 @@
+name: Bug report
+description: Report a reproducible defect in a plugwerk repository.
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report.
+
+        **Before submitting:** please search [existing issues](https://github.com/plugwerk) to avoid duplicates, and confirm you are running a recent version.
+
+        For suspected security vulnerabilities, **do not file a public issue** — see the [Security Policy](https://github.com/plugwerk/.github/blob/main/.github/SECURITY.md).
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One-sentence description of the bug.
+      placeholder: e.g. "Catalog endpoint returns 500 when namespace contains a hyphen"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: repo
+    attributes:
+      label: Affected repository
+      description: Which plugwerk repo is this about?
+      options:
+        - plugwerk/plugwerk
+        - plugwerk/examples
+        - plugwerk/website
+        - other (specify in summary)
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit SHA
+      description: Output of `git rev-parse HEAD` or the release tag you are on.
+      placeholder: e.g. "v0.5.2" or "abc1234"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: A minimal sequence of steps that reproduces the bug. Include commands, requests, or configuration snippets as needed.
+      placeholder: |
+        1. Start the stack with `docker compose up`
+        2. POST to `/api/...` with payload `...`
+        3. Observe response
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What happened instead. Include any error messages or stack traces.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, JVM / Node version, browser (if relevant), database, deployment target.
+      placeholder: |
+        - OS: macOS 15.4
+        - JVM: Temurin 21.0.7
+        - Browser: Firefox 138
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs (optional)
+      description: Relevant log output. Trim to the few lines around the failure to keep this readable.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: code-of-conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/plugwerk/.github/blob/main/.github/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow the Plugwerk Code of Conduct.
+          required: true
