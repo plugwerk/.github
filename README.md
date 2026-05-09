@@ -18,6 +18,7 @@ every repository under `plugwerk/*` that does not provide its own override.
 | `.github/ISSUE_TEMPLATE/` | YAML issue forms (bug, feature, config). |
 | `.github/PULL_REQUEST_TEMPLATE.md` | Default PR template. |
 | `.github/workflows/renovate-config-validator.yml` | Validates `default.json` on every PR. |
+| `.github/workflows/renovate.yml` | Reusable Renovate trigger; consumer repos call it via `uses:` with their own schedule. |
 
 ## Override Behavior
 
@@ -34,6 +35,42 @@ corresponding file here. For example:
 For Renovate, per-repo `renovate.json` files extend `github>plugwerk/.github`
 and add their own `packageRules` for project-specific stacks (e.g. Java/Kotlin
 groupings live in `plugwerk/plugwerk/.github/renovate.json`, not here).
+
+## Reusable Renovate Workflow
+
+Consumer repos call the reusable trigger from this repo so the
+`renovatebot/github-action` SHA pin and run conventions live in one
+place. Minimal stub for a consumer repo's
+`.github/workflows/renovate.yml`:
+
+```yaml
+name: Renovate
+
+on:
+  schedule:
+    - cron: "0 4 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        type: choice
+        default: info
+        options: [info, debug]
+
+jobs:
+  renovate:
+    uses: plugwerk/.github/.github/workflows/renovate.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    with:
+      logLevel: ${{ inputs.logLevel || 'info' }}
+```
+
+Each caller's `GITHUB_TOKEN` is scoped to its own repo, so the call is
+single-repo by design — the reusable workflow does not add cross-repo
+write access.
 
 ## Maintenance
 
