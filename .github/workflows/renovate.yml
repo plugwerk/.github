@@ -66,3 +66,12 @@ jobs:
           # to the *caller's* owner/repo on a workflow_call, so this
           # remains single-repo by construction.
           RENOVATE_REPOSITORIES: ${{ github.repository }}
+          # Manual runs (workflow_dispatch from the Actions tab or
+          # `gh workflow run renovate.yml`) override the per-config
+          # `schedule` filter so PRs are opened immediately. Scheduled
+          # cron triggers leave the schedule intact and respect the
+          # `before 6am every weekday` window from the org default.
+          # The conditional resolves to `{}` (an empty no-op JSON
+          # object) for non-dispatch triggers, keeping the env var
+          # always-present and parseable.
+          RENOVATE_FORCE: ${{ github.event_name == 'workflow_dispatch' && '{"schedule":null}' || '{}' }}
